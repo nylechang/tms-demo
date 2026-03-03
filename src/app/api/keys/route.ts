@@ -13,8 +13,7 @@ export async function GET(request: NextRequest) {
   const search = searchParams.get('search');
 
   let sql = `
-    SELECT tk.*, n.description as namespace_description,
-      (SELECT COUNT(*) FROM translations t WHERE t.key_id = tk.id) as translation_count
+    SELECT tk.*, n.description as namespace_description
     FROM translation_keys tk
     JOIN namespaces n ON tk.namespace_id = n.id
     WHERE 1=1

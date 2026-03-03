@@ -141,7 +141,7 @@ Claude designs specific routes. The system needs these capabilities:
 
 ## Admin UI Pages
 
-1. **Translation Dashboard** — Table of all keys with filters (namespace, tags, status). Add Key action (namespace dropdown populated dynamically). Compliance keys visually prominent. Locale coverage count per key. Pending approvals panel: keys with at least one translation in legal_review status.
+1. **Translation Dashboard** — Table of all keys with filters (namespace, tags, status). Add Key action (namespace dropdown populated dynamically). Compliance keys visually prominent. Pending approvals panel: keys with at least one translation in legal_review status.
 2. **Key Detail & Translation Editor** — All locales for a key, inline editing, forward and backward status workflow buttons per compliance-model.md transitions. Region overrides section with full CRUD (create, edit, delete) and legal approval controls. Visual enforcement of legal gates on compliance keys.
 3. **Fallback Chain Configuration** — All locales with their chains, editable. Visual preview of resolution order.
 4. **Publish & Version History** — Publish flow is two steps: (1) dry-run shows validation report (ready count, excluded compliance keys, ICU errors); (2) confirm triggers actual publish. Version history table with rollback buttons.
