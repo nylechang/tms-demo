@@ -1,0 +1,34 @@
+import { NextRequest, NextResponse } from 'next/server';
+import { getDb } from '@/lib/db';
+
+// GET /api/audit-log — list audit entries with filters
+export async function GET(request: NextRequest) {
+  const db = getDb();
+  const { searchParams } = new URL(request.url);
+  const action = searchParams.get('action');
+  const entityType = searchParams.get('entity_type');
+  const entityId = searchParams.get('entity_id');
+  const limit = parseInt(searchParams.get('limit') || '100', 10);
+
+  let sql = 'SELECT * FROM audit_log WHERE 1=1';
+  const args: string[] = [];
+
+  if (action) {
+    sql += ' AND action = ?';
+    args.push(action);
+  }
+  if (entityType) {
+    sql += ' AND entity_type = ?';
+    args.push(entityType);
+  }
+  if (entityId) {
+    sql += ' AND entity_id = ?';
+    args.push(entityId);
+  }
+
+  sql += ' ORDER BY timestamp DESC, id DESC LIMIT ?';
+  args.push(String(limit));
+
+  const result = await db.execute({ sql, args });
+  return NextResponse.json(result.rows);
+}
