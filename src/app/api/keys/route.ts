@@ -9,6 +9,7 @@ export async function GET(request: NextRequest) {
   const namespace = searchParams.get('namespace');
   const tag = searchParams.get('tag');
   const status = searchParams.get('status');
+  const translationStatus = searchParams.get('translation_status');
   const search = searchParams.get('search');
 
   let sql = `
@@ -32,6 +33,10 @@ export async function GET(request: NextRequest) {
     sql += ' AND tk.status = ?';
     args.push(status);
   }
+  if (translationStatus) {
+    sql += ' AND EXISTS(SELECT 1 FROM translations t WHERE t.key_id = tk.id AND t.status = ?)';
+    args.push(translationStatus);
+  }
   if (search) {
     sql += ' AND (tk.id LIKE ? OR tk.description LIKE ?)';
     args.push(`%${search}%`, `%${search}%`);
@@ -47,7 +52,7 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   const db = getDb();
   const body = await request.json();
-  const { id, namespace_id, description, tags, max_length } = body;
+  const { id, namespace_id, description, tags } = body;
 
   if (!id || !namespace_id) {
     return NextResponse.json({ error: 'id and namespace_id are required' }, { status: 400 });
@@ -60,9 +65,9 @@ export async function POST(request: NextRequest) {
   }
 
   await db.execute({
-    sql: `INSERT INTO translation_keys (id, namespace_id, description, tags, max_length)
-          VALUES (?, ?, ?, ?, ?)`,
-    args: [id, namespace_id, description || null, JSON.stringify(tags || []), max_length || null],
+    sql: `INSERT INTO translation_keys (id, namespace_id, description, tags)
+          VALUES (?, ?, ?, ?)`,
+    args: [id, namespace_id, description || null, JSON.stringify(tags || [])],
   });
 
   await logAudit('create', 'translation_key', id, null, { id, namespace_id, tags }, 'admin');

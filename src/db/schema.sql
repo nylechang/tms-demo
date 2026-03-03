@@ -11,7 +11,6 @@ CREATE TABLE IF NOT EXISTS translation_keys (
   description TEXT,
   tags TEXT NOT NULL DEFAULT '[]',  -- JSON array, e.g. ["compliance"]
   status TEXT NOT NULL DEFAULT 'active',  -- active | deprecated
-  max_length INTEGER,
   created_at TEXT NOT NULL DEFAULT (datetime('now'))
 );
 

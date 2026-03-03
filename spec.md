@@ -112,7 +112,7 @@ A demo project for a Binance i18n Infrastructure Full-Stack Engineer interview. 
 Claude designs the full schema. The system needs these tables with at minimum these key columns:
 
 - **namespaces** — id, description
-- **translation_keys** — id, namespace_id, description, tags (JSON array), status (active/deprecated), max_length
+- **translation_keys** — id, namespace_id, description, tags (JSON array), status (active/deprecated)
 - **translations** — key_id, locale, value (ICU string), status (draft→review→approved→legal_review→legal_approved), approved_by, legal_approved_by
 - **locale_metadata** — locale, direction (ltr/rtl), display_name (native), english_name, script, enabled
 - **fallback_configs** — locale, fallback_chain (JSON array)
@@ -141,11 +141,11 @@ Claude designs specific routes. The system needs these capabilities:
 
 ## Admin UI Pages
 
-1. **Translation Dashboard** — Table of all keys with filters (namespace, tag, status). Compliance keys visually prominent. Locale coverage indicator per key. Pending approvals panel for legal reviewers.
-2. **Key Detail & Translation Editor** — All locales for a key, inline editing, status workflow buttons, region overrides section with approval controls. Visual enforcement of legal gates on compliance keys.
+1. **Translation Dashboard** — Table of all keys with filters (namespace, tags, status). Add Key action (namespace dropdown populated dynamically). Compliance keys visually prominent. Locale coverage count per key. Pending approvals panel: keys with at least one translation in legal_review status.
+2. **Key Detail & Translation Editor** — All locales for a key, inline editing, forward and backward status workflow buttons per compliance-model.md transitions. Region overrides section with full CRUD (create, edit, delete) and legal approval controls. Visual enforcement of legal gates on compliance keys.
 3. **Fallback Chain Configuration** — All locales with their chains, editable. Visual preview of resolution order.
-4. **Publish & Version History** — Pre-publish validation report (ready count, excluded compliance keys, ICU errors). Version history with rollback buttons.
-5. **Audit Log** — Chronological log, filterable by action type, user, date range, entity.
+4. **Publish & Version History** — Publish flow is two steps: (1) dry-run shows validation report (ready count, excluded compliance keys, ICU errors); (2) confirm triggers actual publish. Version history table with rollback buttons.
+5. **Audit Log** — Chronological log, filterable by action type, user (performed_by), date range (from/to), entity.
 
 ## Demo Pages (Consumer-facing)
 

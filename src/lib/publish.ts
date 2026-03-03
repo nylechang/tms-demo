@@ -42,7 +42,7 @@ function checkArabicPlurals(value: string): string[] {
   return adjustedMissing;
 }
 
-export async function publish(publishedBy: string, notes?: string): Promise<PublishReport> {
+export async function publish(publishedBy: string, notes?: string, dryRun = false): Promise<PublishReport> {
   const db = getDb();
   const warnings: PublishWarning[] = [];
   let includedKeys = 0;
@@ -290,6 +290,17 @@ export async function publish(publishedBy: string, notes?: string): Promise<Publ
           VALUES (?, '_manifest', '_manifest', 'base', '', ?)`,
     args: [version, JSON.stringify(manifestContent)],
   });
+
+  // In dry-run mode, return the report without writing anything
+  if (dryRun) {
+    return {
+      version,
+      includedKeys,
+      excludedKeys,
+      warnings,
+      overrideBundles: overrideBundleCount,
+    };
+  }
 
   // Execute all in a single transaction
   await db.batch(stmts, 'write');

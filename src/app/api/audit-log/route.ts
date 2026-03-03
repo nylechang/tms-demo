@@ -8,6 +8,9 @@ export async function GET(request: NextRequest) {
   const action = searchParams.get('action');
   const entityType = searchParams.get('entity_type');
   const entityId = searchParams.get('entity_id');
+  const performedBy = searchParams.get('performed_by');
+  const from = searchParams.get('from');
+  const to = searchParams.get('to');
   const limit = parseInt(searchParams.get('limit') || '100', 10);
 
   let sql = 'SELECT * FROM audit_log WHERE 1=1';
@@ -24,6 +27,18 @@ export async function GET(request: NextRequest) {
   if (entityId) {
     sql += ' AND entity_id = ?';
     args.push(entityId);
+  }
+  if (performedBy) {
+    sql += ' AND performed_by = ?';
+    args.push(performedBy);
+  }
+  if (from) {
+    sql += ' AND timestamp >= ?';
+    args.push(from);
+  }
+  if (to) {
+    sql += ' AND timestamp <= ?';
+    args.push(to);
   }
 
   sql += ' ORDER BY timestamp DESC, id DESC LIMIT ?';

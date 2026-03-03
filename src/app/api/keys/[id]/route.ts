@@ -67,11 +67,6 @@ export async function PATCH(
     updates.push('status = ?');
     args.push(body.status);
   }
-  if (body.max_length !== undefined) {
-    updates.push('max_length = ?');
-    args.push(body.max_length);
-  }
-
   if (updates.length === 0) {
     return NextResponse.json({ error: 'No fields to update' }, { status: 400 });
   }
