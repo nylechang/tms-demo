@@ -9,10 +9,51 @@ export class I18nClient {
   private overrideCache = new Map<string, Bundle>();
   private formatCache = new Map<string, IntlMessageFormat>();
   private loadingPromises = new Map<string, Promise<void>>();
+  private resolvedLocaleCache = new Map<string, string>();
   private baseUrl: string;
 
   constructor(baseUrl = '') {
     this.baseUrl = baseUrl;
+  }
+
+  // Best-match a (possibly maximized) BCP 47 tag against manifest locales.
+  // e.g. "ko-Kore-KR" → "ko", "zh-Hant-TW" → "zh-Hant-TW"
+  //
+  // Resolution: exact → lang-Script-Region → lang-Script → lang → default
+  // Uses Intl.Locale to decompose; no hardcoded locale list needed.
+  resolveLocale(raw: string): string {
+    if (!this.manifest) return raw;
+
+    const cached = this.resolvedLocaleCache.get(raw);
+    if (cached) return cached;
+
+    const known = this.manifest.locales;
+    if (known[raw]) return this._cacheResolved(raw, raw);
+
+    try {
+      const loc = new Intl.Locale(raw);
+      const { language, script, region } = loc;
+
+      // Try progressively shorter tags
+      const candidates: string[] = [];
+      if (script && region) candidates.push(`${language}-${script}-${region}`);
+      if (script) candidates.push(`${language}-${script}`);
+      if (region) candidates.push(`${language}-${region}`);
+      candidates.push(language);
+
+      for (const c of candidates) {
+        if (known[c]) return this._cacheResolved(raw, c);
+      }
+    } catch {
+      // malformed tag — fall through
+    }
+
+    return this._cacheResolved(raw, this.manifest.default_locale);
+  }
+
+  private _cacheResolved(raw: string, resolved: string): string {
+    this.resolvedLocaleCache.set(raw, resolved);
+    return resolved;
   }
 
   // Fetch manifest from API
@@ -29,7 +70,8 @@ export class I18nClient {
   }
 
   getDirection(locale: string): 'ltr' | 'rtl' {
-    const config = this.manifest?.locales[locale];
+    const resolved = this.manifest ? this.resolveLocale(locale) : locale;
+    const config = this.manifest?.locales[resolved];
     return config?.direction ?? 'ltr';
   }
 
@@ -133,15 +175,16 @@ export class I18nClient {
     const namespace = fullKey.substring(0, colonIdx);
     const key = fullKey.substring(colonIdx + 1);
 
-    // Try to resolve through locale + fallback chain
-    const resolved = this._resolve(key, namespace, locale, region);
+    // Best-match locale against manifest, then resolve through fallback chain
+    const matchedLocale = this.resolveLocale(locale);
+    const resolved = this._resolve(key, namespace, matchedLocale, region);
     if (resolved === null) {
       return fullKey; // Return raw key ID — never empty string
     }
 
-    // Format with ICU MessageFormat
+    // Format with ICU MessageFormat (use matched locale for correct plural rules)
     if (values && Object.keys(values).length > 0) {
-      return this._format(resolved, locale, values);
+      return this._format(resolved, matchedLocale, values);
     }
 
     return resolved;
@@ -223,9 +266,10 @@ export class I18nClient {
 
   // Preload all namespaces for a locale (+ fallback chain), with optional region overrides
   async preloadLocale(locale: string, namespaces: string[], region?: string): Promise<void> {
-    const localeConfig = this.manifest?.locales[locale];
+    const resolved = this.manifest ? this.resolveLocale(locale) : locale;
+    const localeConfig = this.manifest?.locales[resolved];
     const chain = localeConfig?.fallback_chain ?? ['en'];
-    const allLocales = [locale, ...chain];
+    const allLocales = [resolved, ...chain];
 
     const promises: Promise<void>[] = [];
 

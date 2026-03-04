@@ -302,11 +302,8 @@ export async function publish(publishedBy: string, notes?: string, dryRun = fals
     };
   }
 
-  // Execute all in a single transaction
-  await db.batch(stmts, 'write');
-
-  // Log to audit
-  await db.execute({
+  // Log to audit (inside the same transaction)
+  stmts.push({
     sql: `INSERT INTO audit_log (action, entity_type, entity_id, old_value, new_value, performed_by)
           VALUES ('publish', 'version', ?, NULL, ?, ?)`,
     args: [
@@ -315,6 +312,9 @@ export async function publish(publishedBy: string, notes?: string, dryRun = fals
       publishedBy,
     ],
   });
+
+  // Execute all in a single transaction
+  await db.batch(stmts, 'write');
 
   return {
     version,

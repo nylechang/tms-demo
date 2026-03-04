@@ -68,7 +68,7 @@ i18n infrastructure demo — Next.js 14+ App Router, TypeScript, Turso (SQLite),
 
 **Arabic has 6 plural forms** (zero, one, two, few, many, other), not the 2 English uses (one, other). When saving or publishing Arabic translations containing `{count, plural, ...}`, validate that all six categories are present. Missing categories cause grammatically incorrect Arabic. The publish pipeline should warn (not block) on missing Arabic plural categories.
 
-**Locale detection priority:** URL param → Cookie → Accept-Language header → default 'en'. Initial detection runs in `middleware.ts` (server-side, has access to Accept-Language). Locale switching is client-side (update cookie + React state, no server roundtrip).
+**Locale detection priority:** URL param → Cookie → Accept-Language header → default 'en'. Initial detection runs in `proxy.ts` (server-side, has access to Accept-Language). Locale switching is client-side (update cookie + React state, no server roundtrip).
 
 **Namespace lazy loading must be visible in the demo.** Log to console when namespaces load and when cache hits occur. Show subtle loading indicators in the UI.
 
