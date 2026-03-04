@@ -12,6 +12,7 @@
   "dependencies": {
     "@libsql/client": "^0.17.0",
     "intl-messageformat": "^11.1.2",
+    "motion": "^12.35.0",
     "next": "16.1.6",
     "react": "19.2.3",
     "react-dom": "19.2.3"
