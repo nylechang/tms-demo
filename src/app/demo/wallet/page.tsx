@@ -57,7 +57,7 @@ export default function WalletPage() {
               </div>
               <div>
                 <label className="mb-1 block text-xs text-zinc-500">{tWallet('deposit.address_label')}</label>
-                <div className="rounded bg-zinc-800 px-3 py-2 font-mono text-xs text-zinc-300 break-all">
+                <div className="rounded bg-zinc-800 px-3 py-2 font-mono text-sm text-zinc-300 break-all">
                   TXn9k3Hp...7vRqZ
                 </div>
               </div>
