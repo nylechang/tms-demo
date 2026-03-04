@@ -6,7 +6,7 @@ import { logAudit } from '@/lib/audit';
 const VALID_TRANSITIONS: Record<string, string[]> = {
   draft: ['review'],
   review: ['approved', 'draft'],
-  approved: ['legal_review', 'draft'],
+  approved: ['legal_review', 'review'],
   legal_review: ['legal_approved', 'approved'],
 };
 
@@ -69,6 +69,9 @@ export async function POST(
   // Reset approvals on backward transitions
   if (newStatus === 'draft') {
     updates.push('approved_by = NULL', 'legal_approved_by = NULL');
+  }
+  if (newStatus === 'review') {
+    updates.push('approved_by = NULL');
   }
 
   updates.push("updated_at = datetime('now')");

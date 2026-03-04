@@ -46,16 +46,27 @@ interface LocaleMeta {
 
 // Status transition helpers
 const FORWARD_TRANSITIONS: Record<string, { label: string; target: string }[]> = {
-  draft: [{ label: 'Submit for Review', target: 'review' }],
+  draft: [{ label: 'Submit', target: 'review' }],
   review: [{ label: 'Approve', target: 'approved' }],
-  approved: [{ label: 'Submit to Legal', target: 'legal_review' }],
-  legal_review: [{ label: 'Legal Approve', target: 'legal_approved' }],
+  approved: [{ label: 'Send Legal', target: 'legal_review' }],
+  legal_review: [{ label: 'Approve', target: 'legal_approved' }],
 };
 
 const BACKWARD_TRANSITIONS: Record<string, { label: string; target: string }> = {
-  review: { label: 'Send Back', target: 'draft' },
-  approved: { label: 'Reopen', target: 'draft' },
-  legal_review: { label: 'Send Back', target: 'approved' },
+  review: { label: 'Reject', target: 'draft' },
+  approved: { label: 'Reject', target: 'review' },
+  legal_review: { label: 'Reject', target: 'approved' },
+};
+
+// Non-compliance keys: different transitions (no legal steps, approved can reopen)
+const FORWARD_TRANSITIONS_SIMPLE: Record<string, { label: string; target: string }[]> = {
+  draft: [{ label: 'Submit', target: 'review' }],
+  review: [{ label: 'Approve', target: 'approved' }],
+};
+
+const BACKWARD_TRANSITIONS_SIMPLE: Record<string, { label: string; target: string }> = {
+  review: { label: 'Reject', target: 'draft' },
+  approved: { label: 'Reject', target: 'review' },
 };
 
 function parseTags(tags: string): string[] {
@@ -301,7 +312,7 @@ export default function KeyDetailPage() {
             <tr className="border-b border-zinc-100">
               <th className="w-[120px] text-start px-6 py-2.5 text-[11px] font-medium text-zinc-400 tracking-wider uppercase">Locale</th>
               <th className="text-start px-4 py-2.5 text-[11px] font-medium text-zinc-400 tracking-wider uppercase">Value</th>
-              <th className="w-[180px] text-start px-4 py-2.5 text-[11px] font-medium text-zinc-400 tracking-wider uppercase">Status</th>
+              <th className="w-[220px] text-start px-4 py-2.5 text-[11px] font-medium text-zinc-400 tracking-wider uppercase">Status</th>
               <th className="w-[220px] text-end px-6 py-2.5 text-[11px] font-medium text-zinc-400 tracking-wider uppercase">Actions</th>
             </tr>
           </thead>
@@ -311,11 +322,10 @@ export default function KeyDetailPage() {
               const isEditing = editLocale === lm.locale;
 
               // Compute transitions once — used in both row and expansion panel
-              const forward = t ? (FORWARD_TRANSITIONS[t.status] || []) : [];
-              const backward = t ? BACKWARD_TRANSITIONS[t.status] : undefined;
-              const validForward = forward.filter(
-                (f) => isCompliance || (f.target !== 'legal_review' && f.target !== 'legal_approved')
-              );
+              const fwdMap = isCompliance ? FORWARD_TRANSITIONS : FORWARD_TRANSITIONS_SIMPLE;
+              const bwdMap = isCompliance ? BACKWARD_TRANSITIONS : BACKWARD_TRANSITIONS_SIMPLE;
+              const validForward = t ? (fwdMap[t.status] || []) : [];
+              const backward = t ? bwdMap[t.status] : undefined;
 
               return (
                 <React.Fragment key={lm.locale}>
@@ -376,7 +386,7 @@ export default function KeyDetailPage() {
                           {backward && (
                             <button
                               onClick={() => handleStatusTransition(lm.locale, backward.target)}
-                              className="rounded-md border border-zinc-200 px-2.5 py-1 text-[11px] font-mono text-zinc-500 hover:bg-zinc-100"
+                              className="w-24 rounded-md border border-zinc-200 px-3 py-1.5 text-[11px] font-mono text-zinc-500 hover:bg-zinc-100 whitespace-nowrap"
                             >
                               {backward.label}
                             </button>
@@ -385,7 +395,7 @@ export default function KeyDetailPage() {
                             <button
                               key={f.target}
                               onClick={() => handleStatusTransition(lm.locale, f.target)}
-                              className="rounded-md bg-zinc-900 px-2.5 py-1 text-[11px] font-mono text-white hover:bg-zinc-800"
+                              className="w-24 rounded-md bg-zinc-900 px-3 py-1.5 text-[11px] font-mono text-white hover:bg-zinc-800 whitespace-nowrap"
                             >
                               {f.label}
                             </button>
@@ -551,6 +561,12 @@ export default function KeyDetailPage() {
                     </td>
                     <td className="px-6 py-3" onClick={(e) => e.stopPropagation()}>
                       <div className="flex items-center justify-end gap-2">
+                        <button
+                          onClick={() => handleDeleteOverride(ov.id)}
+                          className="rounded-md border border-zinc-200 px-2.5 py-1 text-[11px] font-mono text-zinc-500 hover:bg-zinc-100"
+                        >
+                          Delete
+                        </button>
                         {!isApproved && (
                           <button
                             onClick={() => handleApproveOverride(ov.id)}
@@ -559,12 +575,6 @@ export default function KeyDetailPage() {
                             Approve
                           </button>
                         )}
-                        <button
-                          onClick={() => handleDeleteOverride(ov.id)}
-                          className="rounded-md border border-zinc-200 px-2.5 py-1 text-[11px] font-mono text-zinc-500 hover:bg-zinc-100"
-                        >
-                          Delete
-                        </button>
                       </div>
                     </td>
                   </tr>

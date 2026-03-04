@@ -57,6 +57,16 @@ async function migrate() {
     authToken: process.env.TURSO_AUTH_TOKEN,
   });
 
+  console.log('Dropping existing tables...');
+  const dropOrder = [
+    'published_bundles', 'publish_versions', 'audit_log',
+    'region_overrides', 'translations', 'fallback_configs',
+    'locale_metadata', 'translation_keys', 'namespaces',
+  ];
+  for (const table of dropOrder) {
+    await db.execute(`DROP TABLE IF EXISTS ${table}`);
+  }
+
   console.log('Running schema...');
   const schema = readFileSync(join(__dirname, 'schema.sql'), 'utf-8');
   const schemaStmts = splitSQL(schema);
