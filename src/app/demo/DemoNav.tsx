@@ -89,7 +89,7 @@ export default function DemoNav() {
 
               {/* +/- controls to demo plural forms */}
               <div className="flex items-center justify-between px-4 py-3">
-                <span className="text-xs text-zinc-500">Adjust count</span>
+                <span className="text-xs text-zinc-500">{isLoading ? '...' : t('adjust_count')}</span>
                 <div className="flex items-center gap-2">
                   <button
                     onClick={() => setInboxCount(Math.max(0, inboxCount - 1))}

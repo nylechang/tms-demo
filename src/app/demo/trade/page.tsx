@@ -105,7 +105,7 @@ export default function TradePage() {
             {tTrade('order.count', { count: orderCount })}
           </h3>
           <span className="h-4 w-px bg-zinc-700" />
-          <span className="text-xs text-zinc-500">{tTrade('order.adjust_count')}</span>
+          <span className="text-xs text-zinc-500">{tCommon('adjust_count')}</span>
           <button
             onClick={() => setOrderCount(Math.max(0, orderCount - 1))}
             className="rounded bg-zinc-800 px-2 py-0.5 text-sm hover:bg-zinc-700"

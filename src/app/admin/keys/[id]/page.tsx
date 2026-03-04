@@ -462,7 +462,7 @@ export default function KeyDetailPage() {
         {/* Add override form */}
         {showOverrideForm && (
           <form onSubmit={handleAddOverride} className="px-6 py-4 border-b border-zinc-100 bg-zinc-50/50">
-            <div className="flex items-end gap-3 flex-wrap">
+            <div className="flex items-end gap-3">
               <div>
                 <label className="block text-[11px] font-medium text-zinc-400 mb-1 uppercase tracking-wider">Locale</label>
                 <select
@@ -501,12 +501,14 @@ export default function KeyDetailPage() {
                   className="w-full rounded-md border border-zinc-200 px-2.5 py-1.5 text-sm font-mono"
                 />
               </div>
-              <button type="submit" className="rounded-lg bg-zinc-900 px-3 py-1.5 text-xs text-white hover:bg-zinc-800">
-                Add
-              </button>
-              <button type="button" onClick={() => setShowOverrideForm(false)} className="text-xs text-zinc-400 hover:text-zinc-600">
-                Cancel
-              </button>
+              <div className="flex items-center gap-2">
+                <button type="submit" className="rounded-lg bg-zinc-900 px-3 py-1.5 text-xs text-white hover:bg-zinc-800">
+                  Add
+                </button>
+                <button type="button" onClick={() => setShowOverrideForm(false)} className="text-xs text-zinc-400 hover:text-zinc-600">
+                  Cancel
+                </button>
+              </div>
             </div>
           </form>
         )}

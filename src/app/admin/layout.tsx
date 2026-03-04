@@ -34,7 +34,7 @@ export default function AdminLayout({
   }, []);
 
   return (
-    <div className="min-h-screen bg-zinc-100 font-sans">
+    <div className="min-h-screen bg-zinc-100 text-zinc-900 font-sans">
       <Sidebar keyCount={stats.keyCount} />
 
       {/* Content area */}

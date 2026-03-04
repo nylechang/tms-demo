@@ -45,7 +45,7 @@ INSERT INTO fallback_configs (locale, fallback_chain) VALUES
 -- TRANSLATION KEYS
 -- ============================================================
 
--- common namespace (10 keys)
+-- common namespace (11 keys)
 INSERT INTO translation_keys (id, namespace_id, description, tags) VALUES
   ('common:nav.home',      'common', 'Home navigation link',    '[]'),
   ('common:nav.trade',     'common', 'Trade navigation link',   '[]'),
@@ -56,9 +56,10 @@ INSERT INTO translation_keys (id, namespace_id, description, tags) VALUES
   ('common:btn.submit',    'common', 'Submit button',           '[]'),
   ('common:error.network', 'common', 'Network error message',   '[]'),
   ('common:error.generic', 'common', 'Generic error message',   '[]'),
-  ('common:inbox.count',   'common', 'Inbox message count (ICU plural)', '[]');
+  ('common:inbox.count',   'common', 'Inbox message count (ICU plural)', '[]'),
+  ('common:adjust_count',  'common', 'Helper text for plural demo adjustment', '[]');
 
--- trade namespace (22 keys)
+-- trade namespace (21 keys)
 INSERT INTO translation_keys (id, namespace_id, description, tags) VALUES
   ('trade:order.confirm_btn',  'trade', 'Confirm trade button',              '[]'),
   ('trade:order.cancel_link',  'trade', 'Cancel order link',                 '[]'),
@@ -76,7 +77,6 @@ INSERT INTO translation_keys (id, namespace_id, description, tags) VALUES
   ('trade:order.price_label',  'trade', 'Price input label with currency param', '[]'),
   ('trade:order.amount_label', 'trade', 'Amount input label with currency param','[]'),
   ('trade:order.result_label', 'trade', 'Result prefix before purchase confirmation','[]'),
-  ('trade:order.adjust_count', 'trade', 'Helper text for plural demo adjustment','[]'),
   ('trade:order.side',         'trade', 'Order side select (ICU select: buy/sell)','[]'),
   ('trade:table.id',           'trade', 'Table header: order ID',            '[]'),
   ('trade:table.pair',         'trade', 'Table header: trading pair',        '[]'),
@@ -118,7 +118,8 @@ INSERT INTO translations (key_id, locale, value, status, approved_by) VALUES
   ('common:btn.submit',    'en', 'Submit',                              'approved', 'translator_1'),
   ('common:error.network', 'en', 'Network error. Please try again.',    'approved', 'translator_1'),
   ('common:error.generic', 'en', 'Something went wrong.',               'approved', 'translator_1'),
-  ('common:inbox.count',   'en', 'You have {count, plural, =0 {no messages} one {# message} other {# messages}}', 'approved', 'translator_1');
+  ('common:inbox.count',   'en', 'You have {count, plural, =0 {no messages} one {# message} other {# messages}}', 'approved', 'translator_1'),
+  ('common:adjust_count',  'en', 'Adjust count',                            'approved', 'translator_1');
 
 -- zh-Hant: high coverage
 INSERT INTO translations (key_id, locale, value, status, approved_by) VALUES
@@ -131,7 +132,8 @@ INSERT INTO translations (key_id, locale, value, status, approved_by) VALUES
   ('common:btn.submit',    'zh-Hant', '提交',                   'approved', 'translator_2'),
   ('common:error.network', 'zh-Hant', '網路錯誤，請重試。',        'approved', 'translator_2'),
   ('common:error.generic', 'zh-Hant', '發生錯誤。',              'approved', 'translator_2'),
-  ('common:inbox.count',   'zh-Hant', '您有 {count, plural, other {# 則訊息}}', 'approved', 'translator_2');
+  ('common:inbox.count',   'zh-Hant', '您有 {count, plural, other {# 則訊息}}', 'approved', 'translator_2'),
+  ('common:adjust_count',  'zh-Hant', '調整數量',           'approved', 'translator_2');
 
 -- zh-Hans: high coverage
 INSERT INTO translations (key_id, locale, value, status, approved_by) VALUES
@@ -144,7 +146,8 @@ INSERT INTO translations (key_id, locale, value, status, approved_by) VALUES
   ('common:btn.submit',    'zh-Hans', '提交',                   'approved', 'translator_3'),
   ('common:error.network', 'zh-Hans', '网络错误，请重试。',        'approved', 'translator_3'),
   ('common:error.generic', 'zh-Hans', '发生错误。',              'approved', 'translator_3'),
-  ('common:inbox.count',   'zh-Hans', '您有 {count, plural, other {# 条消息}}', 'approved', 'translator_3');
+  ('common:inbox.count',   'zh-Hans', '您有 {count, plural, other {# 条消息}}', 'approved', 'translator_3'),
+  ('common:adjust_count',  'zh-Hans', '调整数量',           'approved', 'translator_3');
 
 -- ar: high coverage
 INSERT INTO translations (key_id, locale, value, status, approved_by) VALUES
@@ -157,7 +160,8 @@ INSERT INTO translations (key_id, locale, value, status, approved_by) VALUES
   ('common:btn.submit',    'ar', 'إرسال',                                     'approved', 'translator_4'),
   ('common:error.network', 'ar', 'خطأ في الشبكة. يرجى المحاولة مرة أخرى.',     'approved', 'translator_4'),
   ('common:error.generic', 'ar', 'حدث خطأ ما.',                               'approved', 'translator_4'),
-  ('common:inbox.count',   'ar', 'لديك {count, plural, =0 {لا رسائل} one {رسالة واحدة} two {رسالتان} few {# رسائل} many {# رسالة} other {# رسالة}}', 'approved', 'translator_4');
+  ('common:inbox.count',   'ar', 'لديك {count, plural, =0 {لا رسائل} one {رسالة واحدة} two {رسالتان} few {# رسائل} many {# رسالة} other {# رسالة}}', 'approved', 'translator_4'),
+  ('common:adjust_count',  'ar', 'تعديل العدد',                'approved', 'translator_4');
 
 -- ko: partial coverage (common only)
 INSERT INTO translations (key_id, locale, value, status, approved_by) VALUES
@@ -165,7 +169,8 @@ INSERT INTO translations (key_id, locale, value, status, approved_by) VALUES
   ('common:nav.trade',   'ko', '거래',   'approved', 'translator_5'),
   ('common:nav.wallet',  'ko', '지갑',   'approved', 'translator_5'),
   ('common:btn.confirm', 'ko', '확인',   'approved', 'translator_5'),
-  ('common:btn.cancel',  'ko', '취소',   'approved', 'translator_5');
+  ('common:btn.cancel',  'ko', '취소',   'approved', 'translator_5'),
+  ('common:adjust_count','ko', '수량 조정',          'approved', 'translator_5');
 
 -- ja: partial
 INSERT INTO translations (key_id, locale, value, status, approved_by) VALUES
@@ -173,7 +178,8 @@ INSERT INTO translations (key_id, locale, value, status, approved_by) VALUES
   ('common:nav.trade',   'ja', '取引',   'approved', 'translator_6'),
   ('common:nav.wallet',  'ja', 'ウォレット', 'approved', 'translator_6'),
   ('common:btn.confirm', 'ja', '確認',   'approved', 'translator_6'),
-  ('common:btn.cancel',  'ja', 'キャンセル', 'approved', 'translator_6');
+  ('common:btn.cancel',  'ja', 'キャンセル', 'approved', 'translator_6'),
+  ('common:adjust_count','ja', '数量を調整',         'approved', 'translator_6');
 
 -- es: partial
 INSERT INTO translations (key_id, locale, value, status, approved_by) VALUES
@@ -181,7 +187,8 @@ INSERT INTO translations (key_id, locale, value, status, approved_by) VALUES
   ('common:nav.trade',   'es', 'Comerciar', 'approved', 'translator_7'),
   ('common:nav.wallet',  'es', 'Billetera', 'approved', 'translator_7'),
   ('common:btn.confirm', 'es', 'Confirmar', 'approved', 'translator_7'),
-  ('common:btn.cancel',  'es', 'Cancelar',  'approved', 'translator_7');
+  ('common:btn.cancel',  'es', 'Cancelar',  'approved', 'translator_7'),
+  ('common:adjust_count','es', 'Ajustar cantidad',       'approved', 'translator_7');
 
 -- de: minimal (common only)
 INSERT INTO translations (key_id, locale, value, status, approved_by) VALUES
@@ -189,7 +196,8 @@ INSERT INTO translations (key_id, locale, value, status, approved_by) VALUES
   ('common:nav.trade',   'de', 'Handeln',     'approved', 'translator_8'),
   ('common:nav.wallet',  'de', 'Geldbörse',   'approved', 'translator_8'),
   ('common:btn.confirm', 'de', 'Bestätigen',  'approved', 'translator_8'),
-  ('common:btn.cancel',  'de', 'Abbrechen',   'approved', 'translator_8');
+  ('common:btn.cancel',  'de', 'Abbrechen',   'approved', 'translator_8'),
+  ('common:adjust_count','de', 'Anzahl anpassen',       'approved', 'translator_8');
 
 -- zh-Hant-TW: partial (demonstrates fallback to zh-Hant)
 INSERT INTO translations (key_id, locale, value, status, approved_by) VALUES
@@ -220,7 +228,6 @@ INSERT INTO translations (key_id, locale, value, status, approved_by) VALUES
   ('trade:order.price_label',  'en', 'Price ({currency})',  'approved', 'translator_1'),
   ('trade:order.amount_label', 'en', 'Amount ({currency})', 'approved', 'translator_1'),
   ('trade:order.result_label', 'en', 'Result:',           'approved', 'translator_1'),
-  ('trade:order.adjust_count', 'en', 'Adjust count',      'approved', 'translator_1'),
   ('trade:order.side',         'en', '{side, select, buy {Buy} sell {Sell} other {Unknown}}', 'approved', 'translator_1'),
   ('trade:table.id',           'en', 'ID',                'approved', 'translator_1'),
   ('trade:table.pair',         'en', 'Pair',              'approved', 'translator_1'),
@@ -250,7 +257,6 @@ INSERT INTO translations (key_id, locale, value, status, approved_by) VALUES
   ('trade:order.price_label',  'zh-Hant', '價格 ({currency})',  'approved', 'translator_2'),
   ('trade:order.amount_label', 'zh-Hant', '數量 ({currency})',  'approved', 'translator_2'),
   ('trade:order.result_label', 'zh-Hant', '結果：',             'approved', 'translator_2'),
-  ('trade:order.adjust_count', 'zh-Hant', '調整數量',           'approved', 'translator_2'),
   ('trade:order.side',         'zh-Hant', '{side, select, buy {買入} sell {賣出} other {未知}}', 'approved', 'translator_2'),
   ('trade:table.id',           'zh-Hant', 'ID',                'approved', 'translator_2'),
   ('trade:table.pair',         'zh-Hant', '交易對',             'approved', 'translator_2'),
@@ -280,7 +286,6 @@ INSERT INTO translations (key_id, locale, value, status, approved_by) VALUES
   ('trade:order.price_label',  'zh-Hans', '价格 ({currency})',  'approved', 'translator_3'),
   ('trade:order.amount_label', 'zh-Hans', '数量 ({currency})',  'approved', 'translator_3'),
   ('trade:order.result_label', 'zh-Hans', '结果：',             'approved', 'translator_3'),
-  ('trade:order.adjust_count', 'zh-Hans', '调整数量',           'approved', 'translator_3'),
   ('trade:order.side',         'zh-Hans', '{side, select, buy {买入} sell {卖出} other {未知}}', 'approved', 'translator_3'),
   ('trade:table.id',           'zh-Hans', 'ID',                'approved', 'translator_3'),
   ('trade:table.pair',         'zh-Hans', '交易对',             'approved', 'translator_3'),
@@ -310,7 +315,6 @@ INSERT INTO translations (key_id, locale, value, status, approved_by) VALUES
   ('trade:order.price_label',  'ar', 'السعر ({currency})',         'approved', 'translator_4'),
   ('trade:order.amount_label', 'ar', 'الكمية ({currency})',        'approved', 'translator_4'),
   ('trade:order.result_label', 'ar', 'النتيجة:',                   'approved', 'translator_4'),
-  ('trade:order.adjust_count', 'ar', 'تعديل العدد',                'approved', 'translator_4'),
   ('trade:order.side',         'ar', '{side, select, buy {شراء} sell {بيع} other {غير معروف}}', 'approved', 'translator_4'),
   ('trade:table.id',           'ar', 'المعرّف',                    'approved', 'translator_4'),
   ('trade:table.pair',         'ar', 'الزوج',                      'approved', 'translator_4'),
@@ -340,7 +344,6 @@ INSERT INTO translations (key_id, locale, value, status, approved_by) VALUES
   ('trade:order.price_label',  'ko', '가격 ({currency})',  'approved', 'translator_5'),
   ('trade:order.amount_label', 'ko', '수량 ({currency})',  'approved', 'translator_5'),
   ('trade:order.result_label', 'ko', '결과:',              'approved', 'translator_5'),
-  ('trade:order.adjust_count', 'ko', '수량 조정',          'approved', 'translator_5'),
   ('trade:order.side',         'ko', '{side, select, buy {매수} sell {매도} other {알 수 없음}}', 'approved', 'translator_5'),
   ('trade:table.id',           'ko', 'ID',                'approved', 'translator_5'),
   ('trade:table.pair',         'ko', '페어',              'approved', 'translator_5'),
@@ -370,7 +373,6 @@ INSERT INTO translations (key_id, locale, value, status, approved_by) VALUES
   ('trade:order.price_label',  'ja', '価格 ({currency})',  'approved', 'translator_6'),
   ('trade:order.amount_label', 'ja', '数量 ({currency})',  'approved', 'translator_6'),
   ('trade:order.result_label', 'ja', '結果：',             'approved', 'translator_6'),
-  ('trade:order.adjust_count', 'ja', '数量を調整',         'approved', 'translator_6'),
   ('trade:order.side',         'ja', '{side, select, buy {買い} sell {売り} other {不明}}', 'approved', 'translator_6'),
   ('trade:table.id',           'ja', 'ID',                'approved', 'translator_6'),
   ('trade:table.pair',         'ja', 'ペア',              'approved', 'translator_6'),
@@ -400,7 +402,6 @@ INSERT INTO translations (key_id, locale, value, status, approved_by) VALUES
   ('trade:order.price_label',  'es', 'Precio ({currency})',    'approved', 'translator_7'),
   ('trade:order.amount_label', 'es', 'Cantidad ({currency})',  'approved', 'translator_7'),
   ('trade:order.result_label', 'es', 'Resultado:',             'approved', 'translator_7'),
-  ('trade:order.adjust_count', 'es', 'Ajustar cantidad',       'approved', 'translator_7'),
   ('trade:order.side',         'es', '{side, select, buy {Compra} sell {Venta} other {Desconocido}}', 'approved', 'translator_7'),
   ('trade:table.id',           'es', 'ID',                     'approved', 'translator_7'),
   ('trade:table.pair',         'es', 'Par',                    'approved', 'translator_7'),
@@ -430,7 +431,6 @@ INSERT INTO translations (key_id, locale, value, status, approved_by) VALUES
   ('trade:order.price_label',  'de', 'Preis ({currency})',    'approved', 'translator_8'),
   ('trade:order.amount_label', 'de', 'Menge ({currency})',    'approved', 'translator_8'),
   ('trade:order.result_label', 'de', 'Ergebnis:',             'approved', 'translator_8'),
-  ('trade:order.adjust_count', 'de', 'Anzahl anpassen',       'approved', 'translator_8'),
   ('trade:order.side',         'de', '{side, select, buy {Kauf} sell {Verkauf} other {Unbekannt}}', 'approved', 'translator_8'),
   ('trade:table.id',           'de', 'ID',                    'approved', 'translator_8'),
   ('trade:table.pair',         'de', 'Paar',                  'approved', 'translator_8'),
