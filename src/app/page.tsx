@@ -69,7 +69,7 @@ function LiquidBackground() {
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
       <motion.div
-        className="absolute -top-[20%] -left-[10%] w-[70vw] h-[70vw] bg-indigo-500/20 sm:bg-indigo-500/8 rounded-full blur-[50px] sm:blur-[120px]"
+        className="absolute -top-[20%] -left-[10%] w-[90vw] h-[50vh] sm:w-[70vw] sm:h-[70vw] bg-indigo-500/15 sm:bg-indigo-500/8 rounded-full blur-[70px] sm:blur-[120px]"
         animate={{
           x: ["0%", "40%", "0%"],
           y: ["0%", "25%", "0%"],
@@ -79,7 +79,7 @@ function LiquidBackground() {
         transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
       />
       <motion.div
-        className="absolute top-[10%] -right-[20%] w-[60vw] h-[60vw] bg-purple-500/20 sm:bg-purple-500/8 rounded-full blur-[50px] sm:blur-[120px]"
+        className="absolute top-[10%] -right-[20%] w-[80vw] h-[45vh] sm:w-[60vw] sm:h-[60vw] bg-purple-500/15 sm:bg-purple-500/8 rounded-full blur-[70px] sm:blur-[120px]"
         animate={{
           x: ["0%", "-30%", "0%"],
           y: ["0%", "35%", "0%"],
@@ -89,7 +89,7 @@ function LiquidBackground() {
         transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 2 }}
       />
       <motion.div
-        className="absolute -bottom-[20%] left-[20%] w-[80vw] h-[80vw] bg-blue-500/15 sm:bg-blue-500/5 rounded-full blur-[50px] sm:blur-[140px]"
+        className="absolute -bottom-[20%] left-[20%] w-[100vw] h-[50vh] sm:w-[80vw] sm:h-[80vw] bg-blue-500/10 sm:bg-blue-500/5 rounded-full blur-[70px] sm:blur-[140px]"
         animate={{
           x: ["0%", "30%", "0%"],
           y: ["0%", "-25%", "0%"],
@@ -127,7 +127,7 @@ function Card({
       `}
     >
       <div className="flex items-start justify-between mb-4">
-        <div className={`p-3 rounded-xl bg-white/5 ${!disabled && 'group-hover:bg-indigo-500/20 group-hover:text-indigo-300'} transition-colors`}>
+        <div className={`p-3 rounded-xl bg-white/5 text-white ${!disabled && 'group-hover:bg-indigo-500/20 group-hover:text-indigo-300'} transition-colors`}>
           {icon}
         </div>
         {!disabled && (
