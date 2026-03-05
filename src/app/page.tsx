@@ -69,7 +69,7 @@ function LiquidBackground() {
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
       <motion.div
-        className="absolute -top-[20%] -left-[10%] w-[70vw] h-[70vw] bg-indigo-500/8 rounded-full blur-[120px]"
+        className="absolute -top-[20%] -left-[10%] w-[70vw] h-[70vw] bg-indigo-500/20 sm:bg-indigo-500/8 rounded-full blur-[50px] sm:blur-[120px]"
         animate={{
           x: ["0%", "40%", "0%"],
           y: ["0%", "25%", "0%"],
@@ -79,7 +79,7 @@ function LiquidBackground() {
         transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
       />
       <motion.div
-        className="absolute top-[10%] -right-[20%] w-[60vw] h-[60vw] bg-purple-500/8 rounded-full blur-[120px]"
+        className="absolute top-[10%] -right-[20%] w-[60vw] h-[60vw] bg-purple-500/20 sm:bg-purple-500/8 rounded-full blur-[50px] sm:blur-[120px]"
         animate={{
           x: ["0%", "-30%", "0%"],
           y: ["0%", "35%", "0%"],
@@ -89,7 +89,7 @@ function LiquidBackground() {
         transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 2 }}
       />
       <motion.div
-        className="absolute -bottom-[20%] left-[20%] w-[80vw] h-[80vw] bg-blue-500/5 rounded-full blur-[140px]"
+        className="absolute -bottom-[20%] left-[20%] w-[80vw] h-[80vw] bg-blue-500/15 sm:bg-blue-500/5 rounded-full blur-[50px] sm:blur-[140px]"
         animate={{
           x: ["0%", "30%", "0%"],
           y: ["0%", "-25%", "0%"],
