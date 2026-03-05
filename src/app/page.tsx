@@ -47,11 +47,10 @@ export default function Home() {
             icon={<GithubIcon />}
           />
           <Card
-            href="#"
+            href="https://www.youtube.com/watch?v=i-k3cLJKBgc"
             title="Walkthrough"
-            description="3-min video walkthrough (Coming Soon)"
+            description="3-min video walkthrough"
             icon={<PlayIcon />}
-            disabled
           />
         </div>
 

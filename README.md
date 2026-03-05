@@ -1,8 +1,8 @@
 # i18n Infrastructure Demo
 
-**i18n is a content pipeline, not a string replacement library.** This demo shows what that means in practice — for a financial platform with 40+ locales, compliance requirements, and users across multiple legal jurisdictions.
+**i18n isn't just swapping strings — it's a full content pipeline.** This demo shows what that means in practice — for a financial platform with 40+ locales, compliance requirements, and users across multiple legal jurisdictions.
 
-[Live Demo](https://tms-demo-amber.vercel.app/) · [3-min walkthrough video](#)
+[Live Demo](https://tms-demo-amber.vercel.app/) · [3-min walkthrough video](https://www.youtube.com/watch?v=i-k3cLJKBgc)
 
 ---
 
