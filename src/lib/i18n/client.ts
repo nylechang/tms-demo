@@ -274,7 +274,10 @@ export class I18nClient {
     const promises: Promise<void>[] = [];
 
     for (const l of allLocales) {
+      const localeNs = this.manifest?.locales[l]?.namespaces;
       for (const ns of namespaces) {
+        // Skip if manifest says this locale has no bundle for this namespace
+        if (localeNs && !localeNs.includes(ns)) continue;
         promises.push(this.loadNamespace(l, ns));
         if (region) {
           promises.push(this.loadOverrides(l, ns, region));

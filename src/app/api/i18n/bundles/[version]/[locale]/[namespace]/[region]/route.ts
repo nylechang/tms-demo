@@ -16,7 +16,10 @@ export async function GET(
   });
 
   if (result.rows.length === 0) {
-    return NextResponse.json({}, { status: 404 });
+    return NextResponse.json({}, {
+      status: 404,
+      headers: { 'Cache-Control': 'public, max-age=31536000, immutable' },
+    });
   }
 
   const content = JSON.parse(result.rows[0].content as string);
