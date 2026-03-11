@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@libsql/client": "^0.17.0",
+    "@vercel/analytics": "^2.0.0",
     "intl-messageformat": "^11.1.2",
     "motion": "^12.35.0",
     "next": "16.1.6",
